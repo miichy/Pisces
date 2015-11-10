@@ -11,7 +11,7 @@
 
 import pexpect
 import subprocess
-import sys, getopt
+import sys,argparse
 from MyLogger import MyLogger
 from Tool import Tool
 
@@ -50,37 +50,7 @@ class AutoD:
         print('command is {}'.format(self.comms))
 
 
-if (len(sys.argv) < 5):
-    print(text)
-    sys.exit(1)
-else:
-    try:
-        opts, args = getopt.getopt(sys.argv[1:], 'u', ['host=', 'key=','command=' ,'user=','help='])
-        print('~~~~~ {0},{1}'.format(opts,args))
-    except getopt.GetoptError as err:
-        print(str(err))
-        sys.exit(2)
-    host = ""
-    commands = ""
-    key = ""
-    user = ""
-    for op, value in opts:
-        if op == '--host':
-            host = value
-            print('host value is {}'.format(value))
-        elif op == '--command':
-            commands = value
-            print('commands value is {}'.format(value))
-        elif op == '--key':
-            key = value
-            print('key value is {}'.format(value))
-        elif op == '--user':
-            user = value
-            print('user value is {}'.format(value))
-        elif op == '--help':
-            print(text)
-            sys.exit(1)
-
-autoD = AutoD(host, commands, key, user)
+args = Tool().arg_parse();
+autoD = AutoD(args.hostname, args.command, args.key, args.user)
 autoD.exec_command()
-# autoD.destroyed()
+#autoD.destroyed()
