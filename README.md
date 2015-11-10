@@ -6,3 +6,11 @@
 #### purpose: ssh login the remote machine and do the installation command
 
 #### autoD.py -h localhost -s jdk/tomcat/mysql/orcale
+
+##### 参数分析
+
+--key
+--user
+VS
+-k
+-u
