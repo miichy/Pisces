@@ -1,3 +1,5 @@
 # gitignore
 
-/*.log
+/*.log*
+/*.pem
+/ott-bestadmin.pem

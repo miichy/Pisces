@@ -10,8 +10,7 @@
 # Description:ssh login in
 
 import pexpect
-import subprocess
-import sys,argparse
+
 from MyLogger import MyLogger
 from Tool import Tool
 
@@ -26,6 +25,7 @@ you need to pass two arguments followed by the script name
 
 class AutoD:
     def __init__(self, host, comms, key, user, ):
+
         self.logger = MyLogger().getLogger();
         self.logger.info('AutoD initial beginning~~~')
         self.tool = Tool()
@@ -33,16 +33,13 @@ class AutoD:
         self.host = host
         self.comms = comms
         if not key:
-            # self.child = pexpect.spawn('ssh {0}@{1}'.format(user, host))
-            print('ssh commandssss')
-            print(host, comms, key, user)
+            self.child = pexpect.spawn('ssh {0}@{1}'.format(user, host))
         else:
-            # self.child = pexpect.spawn('ssh -i {0} {1}@{2}'.format(key, user, host))
-            print('ssh commands')
+            self.child = pexpect.spawn('ssh -i {0} {1}@{2}'.format(key, user, host))
 
     def destroyed(self):
         self.logger.info('Destoryed the ssh login ~~~ ')
-        subprocess.call(['kill', str(self.child.pid)])
+        self.child.close(force=True)
 
     def exec_command(self):
         self.logger.info('AutoD.exec_command ')
@@ -53,4 +50,4 @@ class AutoD:
 args = Tool().arg_parse();
 autoD = AutoD(args.hostname, args.command, args.key, args.user)
 autoD.exec_command()
-#autoD.destroyed()
+autoD.destroyed()
