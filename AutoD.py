@@ -9,7 +9,8 @@
 
 # Description:ssh login in
 
-import pexpect
+#import pexpect
+from pexpect import *
 
 from MyLogger import MyLogger
 from Tool import Tool
@@ -21,7 +22,7 @@ you need to pass two arguments followed by the script name
 --user required
 --key optional
 '''
-
+error = '''ImportError:No module named termios'''
 
 class AutoD:
     def __init__(self, host, comms, key, user, ):
@@ -33,9 +34,9 @@ class AutoD:
         self.host = host
         self.comms = comms
         if not key:
-            self.child = pexpect.spawn('ssh {0}@{1}'.format(user, host))
+            self.child = run('ssh {0}@{1}'.format(user, host))
         else:
-            self.child = pexpect.spawn('ssh -i {0} {1}@{2}'.format(key, user, host))
+            self.child = run('ssh -i {0} {1}@{2}'.format(key, user, host))
 
     def destroyed(self):
         self.logger.info('Destoryed the ssh login ~~~ ')
